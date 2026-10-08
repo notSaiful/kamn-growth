@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --color-parchment: #F3EADB;
+  --color-ivory: #FAF6EE;
+  --color-sand: #E8D7BC;
+  --color-ink: #29251F;
+  --color-taupe: #6C6255;
+  --color-olive: #68694C;
+  --color-gold: #B59661;
+
+  --font-sans: 'Alexandria', sans-serif;
+  --font-serif: 'Alexandria', sans-serif;
+  --font-arabic: 'Alexandria', sans-serif;
+}
+
+@layer base {
+  *, ::before, ::after {
+    font-family: 'Alexandria', sans-serif !important;
+  }
+
+  body {
+    background-color: var(--color-parchment);
+    color: var(--color-ink);
+    font-family: 'Alexandria', sans-serif !important;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Alexandria', sans-serif !important;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* 12-Column Editorial Grid Container */
+.editorial-container {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(20px, 5vw, 80px);
+  padding-right: clamp(20px, 5vw, 80px);
+}
+
+/* The Signature SAZO Arch Silhouette */
+.sazo-arch-frame {
+  border-top-left-radius: 50% 35%;
+  border-top-right-radius: 50% 35%;
+}
+
+.sazo-arch-deep {
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+}
+
+/* Hairline Rules */
+.hairline-border {
+  border-color: rgba(41, 37, 31, 0.12);
+}
+
+.hairline-gold {
+  border-color: rgba(181, 150, 97, 0.3);
+}
+
+/* Text Selection: Sandstone Warmth */
+::selection {
+  background-color: #E8D7BC;
+  color: #29251F;
+}
+
+/* Restrained Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Suppress all native browser video controls and pause/resume HUD overlays */
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+

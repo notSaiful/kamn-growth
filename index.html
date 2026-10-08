@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Metadata -->
+    <title>KAMN — AI-Native Managed Growth, Procurement & Operations</title>
+    <meta name="title" content="KAMN — AI-Native Managed Growth, Procurement & Operations" />
+    <meta name="description" content="AI-native managed business development, procurement, and operations consultancy for SMEs. We execute the operational work behind your business through dedicated human consultants and proprietary AI OS leverage. No software to learn." />
+    <meta name="keywords" content="managed business development, outsourced sales support, SME procurement consulting, supplier sourcing, operations consulting, AI business consultancy, business growth partner" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://kamn-growth.vercel.app/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kamn-growth.vercel.app/" />
+    <meta property="og:title" content="KAMN — AI-Native Managed Growth, Procurement & Operations" />
+    <meta property="og:description" content="AI-native managed business development, procurement, and operations consultancy for SMEs. We execute the operational work behind your business. No software to learn." />
+    <meta property="og:image" content="https://kamn-growth.vercel.app/assets/hero-poster.jpg" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://kamn-growth.vercel.app/" />
+    <meta name="twitter:title" content="KAMN — AI-Native Managed Growth, Procurement & Operations" />
+    <meta name="twitter:description" content="AI-native managed business development, procurement, and operations consultancy for SMEs. We execute the operational work behind your business. No software to learn." />
+    <meta name="twitter:image" content="https://kamn-growth.vercel.app/assets/hero-poster.jpg" />
+
+    <!-- Structured Data: Organization & ProfessionalService -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://kamn-growth.vercel.app/#organization",
+          "name": "KAMN",
+          "url": "https://kamn-growth.vercel.app",
+          "logo": "https://kamn-growth.vercel.app/favicon.png",
+          "description": "AI-native managed growth, procurement, and operations consultancy founded on principles of Amanah, Ihsan, and Sidq.",
+          "knowsAbout": [
+            "Outsourced Business Development",
+            "SME Procurement Consulting",
+            "Operational Workflows",
+            "Ethical AI Implementation"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://kamn-growth.vercel.app/#service",
+          "name": "KAMN Growth & Operations",
+          "url": "https://kamn-growth.vercel.app",
+          "image": "https://kamn-growth.vercel.app/assets/hero-poster.jpg",
+          "priceRange": "$$",
+          "description": "Outsourced operational execution across business development, supplier sourcing, workflow coordination, and AI automation for growing SMEs.",
+          "serviceType": [
+            "Managed Growth & BD",
+            "Strategic Procurement & Sourcing",
+            "Managed Operations",
+            "Intelligent Workflow Systems"
+          ],
+          "areaServed": "Global",
+          "parentOrganization": {
+            "@id": "https://kamn-growth.vercel.app/#organization"
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Preload Hero Assets -->
+    <link rel="preload" as="image" href="/assets/hero-poster.jpg" />
+
+    <!-- Google Font: Alexandria (Sole Typeface across KAMN) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+  </head>
+  <body class="bg-[#F3EADB] text-[#29251F] font-sans antialiased selection:bg-[#E8D7BC] selection:text-[#29251F] overflow-x-hidden">
+    
+    <!-- Global Tactile Paper Grain SVG Noise Filter (2-3% opacity, non-blocking) -->
+    <svg class="pointer-events-none fixed inset-0 z-50 h-full w-full opacity-[0.035]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <filter id="sandstone-grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#sandstone-grain)" />
+    </svg>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
