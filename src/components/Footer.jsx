@@ -68,15 +68,9 @@ export default function Footer() {
             <h4 className="text-xs uppercase tracking-[0.25em] font-semibold text-[#29251F] mb-6">
               Engagement
             </h4>
-            <p className="text-xs text-[#6C6255] font-normal leading-relaxed mb-4">
+            <p className="text-xs text-[#6C6255] font-normal leading-relaxed">
               Engagements begin by confidential review.
             </p>
-            <Link
-              to="/begin"
-              className="inline-block px-5 py-2.5 bg-[#29251F] text-[#FAF6EE] text-xs font-semibold tracking-[0.18em] uppercase rounded-xs hover:bg-[#363428] transition-colors cursor-pointer"
-            >
-              Book a Growth Review
-            </Link>
           </div>
 
         </div>

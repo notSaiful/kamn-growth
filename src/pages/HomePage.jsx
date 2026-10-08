@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, ArrowDown, Check, Shield } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Shield } from 'lucide-react';
 import SazoArchSvgDef, { KhatamStar, MashrabiyaPattern } from '../components/SazoArch';
 import { EASE_LUXURY } from '../lib/motionTokens';
 
@@ -188,7 +188,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.95, duration: 0.8 }}
-            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-6 sm:px-0"
+            className="mt-8 sm:mt-10 flex items-center justify-center w-full sm:w-auto px-6 sm:px-0"
           >
             <Link
               to="/begin"
@@ -197,14 +197,6 @@ export default function HomePage() {
               <span>Book a Growth Review</span>
               <ArrowRight className="w-4 h-4 text-[#29251F] group-hover:translate-x-1 transition-transform" />
             </Link>
-
-            <a
-              href="#services"
-              className="w-full sm:w-auto min-h-[50px] px-8 py-4 border border-[#FAF6EE]/40 text-[#FAF6EE] hover:bg-[#FAF6EE]/10 font-semibold text-xs tracking-[0.22em] uppercase rounded-sm transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>See Services</span>
-              <ArrowDown className="w-3.5 h-3.5 text-[#B59661]" />
-            </a>
           </motion.div>
 
           <motion.div

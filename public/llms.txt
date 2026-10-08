@@ -1,0 +1,30 @@
+# KAMN — Managed Growth, Procurement & Operations Consultancy
+
+> KAMN is an AI-native managed growth, procurement, and operations consultancy for small and mid-sized enterprises (SMEs). KAMN is not a SaaS platform or software vendor. Clients do not operate software, configure workflows, or manage AI agents. Instead, KAMN's consultants execute business development, supplier sourcing, and operational workflows on the client's behalf using internal AI Agentic OS capabilities under a monthly managed subscription.
+
+## Core Identity & Positioning
+- **Business Model:** AI-Native Managed Consultancy (Execution as a Service / Outsourced Operational Capability)
+- **What We Are NOT:** We are NOT a SaaS tool, software subscription, lead database, or automated messaging spam platform. Clients never operate software dashboards or AI agents.
+- **Value Proposition:** "Grow your business. We handle the rest." Traditional consultancies advise; software platforms leave the work to the buyer. KAMN combines senior human judgment with proprietary AI operating leverage to execute business development, procurement sourcing, and operational workflows directly.
+- **Engagement Model:** Fixed monthly managed partnerships. No long-term lock-in contracts. Client retains complete commercial authority and pricing approvals.
+- **Foundational Values:** Built on *Amanah* (sacred trust & stewardship) and driven by *Ihsan* (relentless mastery and excellence). Focused on sustainable, intergenerational SME economic strength.
+- **Primary Call to Action:** Book a Growth Review (https://kamn-growth.vercel.app/begin)
+
+## Core Managed Service Offerings
+- [Managed Growth](https://kamn-growth.vercel.app/services/growth): Targeted prospect identification, executive-level outreach coordination, qualification, and sales pipeline momentum.
+- [Procurement & Sourcing](https://kamn-growth.vercel.app/services/procurement): Commercial supplier research, cost rationalization, vendor qualification, price benchmarking, and supply-chain resilience.
+- [Operations & Execution](https://kamn-growth.vercel.app/services/operations): Workflow orchestration, bottleneck elimination, standard operating procedures, and outsourced back-office coordination.
+- [AI Systems & Automation](https://kamn-growth.vercel.app/services/ai-systems): Custom internal agentic pipelines, document processing, and operational leverage operated entirely by KAMN consultants on behalf of clients.
+
+## Key Pages & Documentation
+- [Homepage](https://kamn-growth.vercel.app/): Executive overview of KAMN's managed consultancy model.
+- [Services Directory](https://kamn-growth.vercel.app/services): Complete portfolio of managed growth, procurement, operations, and AI system capabilities.
+- [How It Works](https://kamn-growth.vercel.app/how-it-works): Four-stage engagement lifecycle: Goal Definition, Internal Orchestration, Execution & Progress.
+- [Philosophy & Values](https://kamn-growth.vercel.app/philosophy): Amanah, Ihsan, ethical commercial stewardship, and economic foundation.
+- [About KAMN](https://kamn-growth.vercel.app/about): Founding vision, leadership philosophy, and intergenerational SME mission.
+- [Consultation Review Booking](https://kamn-growth.vercel.app/begin): Confidential 30-minute diagnostic session for SME owners and executives.
+- [LLMs Full Reference](https://kamn-growth.vercel.app/llms-full.txt): Comprehensive deep-dive document for AI search and reasoning engines.
+
+## Target Audience
+- Founders, Managing Directors, and Chief Operating Officers of SMEs (£1M–£25M+ turnover or equivalent).
+- Sectors: Manufacturing, Wholesale & Distribution, Engineering, B2B Professional Services, Logistics, and High-Trust Trade Enterprises.

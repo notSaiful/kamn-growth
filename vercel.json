@@ -1,8 +1,59 @@
 {
-  "rewrites": [
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/what-we-do",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/approach",
+      "permanent": true
+    },
+    {
+      "source": "/why-kamn",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/principles",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "/partnership",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
     }
   ]
 }

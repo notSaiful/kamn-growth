@@ -1,4 +1,39 @@
-User-agent: *
+# ==============================================================================
+# KAMN ROBOTS.TXT — SEARCH ENGINE & AI RETRIEVAL POLICY
+# ==============================================================================
+
+# 1. Primary Web Search Engines
+User-agent: Googlebot
 Allow: /
 
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# 2. AI Search & Citation Engines (Search Retrieval & Citations)
+# OAI-SearchBot: Indexing for ChatGPT Search discovery
+User-agent: OAI-SearchBot
+Allow: /
+
+# ChatGPT-User: Real-time web browsing requests initiated by ChatGPT users
+User-agent: ChatGPT-User
+Allow: /
+
+# PerplexityBot: Search indexing and citation retrieval for Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Claude-Web: Web retrieval for Claude search experiences
+User-agent: Claude-Web
+Allow: /
+
+# 3. Default Policy for All Other Agents
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# 4. Sitemap & AI Search Reference Declarations
 Sitemap: https://kamn-growth.vercel.app/sitemap.xml
+# AI Documentation: https://kamn-growth.vercel.app/llms.txt
