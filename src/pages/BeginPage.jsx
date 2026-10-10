@@ -74,7 +74,7 @@ export default function BeginPage() {
     }
 
     // Basic validation
-    if (!formData.fullName.trim() || !formData.companyName.trim() || !formData.businessEmail.trim() || !formData.whatsappNumber.trim()) {
+    if (!formData.fullName.trim() || !formData.companyName.trim() || !formData.businessEmail.trim()) {
       setErrorMsg('Please complete all required fields.');
       return;
     }
@@ -82,6 +82,13 @@ export default function BeginPage() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.businessEmail)) {
       setErrorMsg('Please provide a valid business email address.');
+      return;
+    }
+
+    // Mandatory phone number validation
+    const cleanPhone = (formData.whatsappNumber || '').replace(/[^0-9]/g, '');
+    if (!formData.whatsappNumber.trim() || cleanPhone.length < 7) {
+      setErrorMsg('Phone / WhatsApp number is mandatory. Please provide a valid number with country code (e.g. +44 7700 900077).');
       return;
     }
 
@@ -387,7 +394,7 @@ export default function BeginPage() {
                           htmlFor="whatsappNumber" 
                           className="block text-xs uppercase tracking-[0.2em] font-semibold text-[#29251F]"
                         >
-                          WhatsApp Number *
+                          Phone / WhatsApp *
                         </label>
                         <input
                           id="whatsappNumber"
@@ -396,7 +403,7 @@ export default function BeginPage() {
                           required
                           value={formData.whatsappNumber}
                           onChange={handleChange}
-                          placeholder="+44 7... / +971 50..."
+                          placeholder="e.g. +44 7700 900077"
                           className="w-full bg-[#FAF6EE] border border-[#29251F]/20 rounded-xs px-4 py-3 text-sm text-[#29251F] focus:outline-none focus:border-[#B59661] transition-colors"
                         />
                       </div>

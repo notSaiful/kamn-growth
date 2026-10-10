@@ -59,6 +59,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'A valid email address is required.' });
     }
 
+    const phone = (body.phone || body.whatsappNumber || body.whatsapp_number || '').trim();
+    const cleanPhone = phone.replace(/[^0-9]/g, '');
+    if (!phone || cleanPhone.length < 7) {
+      return res.status(400).json({ error: 'A valid phone or WhatsApp number is mandatory (at least 7 digits with country code).' });
+    }
+
     const payload = {
       name,
       email,
@@ -66,10 +72,11 @@ export default async function handler(req, res) {
       objective: objective || null,
       status: 'new',
       metadata: {
+        phone: phone,
         source: 'api_submit_inquiry',
         submitted_at: new Date().toISOString(),
-        client_ip: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || null,
-        user_agent: req.headers['user-agent'] || null,
+        client_ip: req.headers?.['x-forwarded-for'] || req.socket?.remoteAddress || null,
+        user_agent: req.headers?.['user-agent'] || null,
       },
     };
 
@@ -97,6 +104,7 @@ export default async function handler(req, res) {
       notificationResults = await sendEnquiryNotification({
         fullName: name,
         businessEmail: email,
+        whatsappNumber: phone,
         companyName: company,
         primaryChallenge: objective,
         description: objective,

@@ -121,6 +121,7 @@ export async function submitInquiry(formData) {
   const payload = {
     name: formData.name || formData.fullName || '',
     email: formData.email || formData.businessEmail || '',
+    phone: formData.phone || formData.whatsappNumber || '',
     company: formData.company || formData.companyName || '',
     objective: formData.objective || formData.description || '',
   };
@@ -151,6 +152,7 @@ export async function submitInquiry(formData) {
         company: payload.company,
         objective: payload.objective,
         metadata: {
+          phone: payload.phone,
           source: 'web_audit_modal_direct',
           submitted_at: new Date().toISOString(),
         }

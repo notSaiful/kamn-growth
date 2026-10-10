@@ -61,12 +61,18 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'A valid business email address is required.' });
     }
 
+    const whatsappNumber = (body.whatsappNumber || body.whatsapp_number || body.phone || '').trim();
+    const cleanPhone = whatsappNumber.replace(/[^0-9]/g, '');
+    if (!whatsappNumber || cleanPhone.length < 7) {
+      return res.status(400).json({ error: 'A valid phone or WhatsApp number is mandatory (at least 7 digits with country code).' });
+    }
+
     const payload = {
       full_name: fullName,
       business_email: businessEmail,
       company_name: companyName || null,
       website: (body.website || '').trim() || null,
-      whatsapp_number: (body.whatsappNumber || body.whatsapp_number || '').trim() || null,
+      whatsapp_number: whatsappNumber,
       annual_revenue: body.annualRevenue || body.annual_revenue || null,
       primary_challenge: body.primaryChallenge || body.primary_challenge || null,
       ideal_timeline: body.idealTimeline || body.ideal_timeline || null,
@@ -74,8 +80,8 @@ export default async function handler(req, res) {
       metadata: {
         source: 'api_submit_growth_review',
         submitted_at: new Date().toISOString(),
-        client_ip: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || null,
-        user_agent: req.headers['user-agent'] || null,
+        client_ip: req.headers?.['x-forwarded-for'] || req.socket?.remoteAddress || null,
+        user_agent: req.headers?.['user-agent'] || null,
       },
     };
 

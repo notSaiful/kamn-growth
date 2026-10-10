@@ -5,12 +5,32 @@ import { submitInquiry } from '../lib/supabaseClient';
 
 export default function AuditModal({ isOpen, onClose, title, subtitle }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', company: '', objective: '' });
+  const [errorMsg, setErrorMsg] = useState('');
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', company: '', objective: '' });
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg('');
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.company.trim()) {
+      setErrorMsg('Please complete all required fields.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setErrorMsg('Please provide a valid business email address.');
+      return;
+    }
+
+    const cleanPhone = (formData.phone || '').replace(/[^0-9]/g, '');
+    if (!formData.phone.trim() || cleanPhone.length < 7) {
+      setErrorMsg('Phone / WhatsApp number is mandatory. Please provide a valid number with country code (e.g. +44 7700 900077).');
+      return;
+    }
+
     try {
       await submitInquiry(formData);
     } catch (err) {
@@ -31,6 +51,7 @@ export default function AuditModal({ isOpen, onClose, title, subtitle }) {
           _replyto: formData.email,
           'Client Name': formData.name,
           'Business Email': formData.email,
+          'Phone / WhatsApp': formData.phone,
           'Company Name': formData.company,
           'Strategic Need': formData.objective,
           'Source': 'Audit Modal Consultation',
@@ -46,6 +67,7 @@ export default function AuditModal({ isOpen, onClose, title, subtitle }) {
 
   const handleClose = () => {
     setFormSubmitted(false);
+    setErrorMsg('');
     onClose();
   };
 
@@ -100,45 +122,78 @@ export default function AuditModal({ isOpen, onClose, title, subtitle }) {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4 text-sm">
-            <div>
-              <label className="block text-xs uppercase tracking-[0.15em] text-[#29251F] font-semibold mb-1">
-                Your Name
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="e.g. Tariq Al-Mansoor"
-                className="w-full px-3.5 py-2.5 bg-[#EFE5D5] border border-[#363428]/25 rounded-xs text-[#29251F] placeholder:text-[#5C5346]/60 focus:outline-none focus:border-[#B59661]"
-              />
+          <form onSubmit={handleSubmit} className="space-y-4 text-sm" noValidate>
+            {errorMsg && (
+              <div className="p-3 bg-red-500/15 border border-red-500/30 text-red-950 text-xs font-medium rounded-xs">
+                {errorMsg}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs uppercase tracking-[0.15em] text-[#29251F] font-semibold mb-1">
+                  Your Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => {
+                    setFormData({ ...formData, name: e.target.value });
+                    if (errorMsg) setErrorMsg('');
+                  }}
+                  placeholder="e.g. Tariq Al-Mansoor"
+                  className="w-full px-3.5 py-2.5 bg-[#EFE5D5] border border-[#363428]/25 rounded-xs text-[#29251F] placeholder:text-[#5C5346]/60 focus:outline-none focus:border-[#B59661]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-[0.15em] text-[#29251F] font-semibold mb-1">
+                  Company Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.company}
+                  onChange={(e) => {
+                    setFormData({ ...formData, company: e.target.value });
+                    if (errorMsg) setErrorMsg('');
+                  }}
+                  placeholder="e.g. Crescent Industrial"
+                  className="w-full px-3.5 py-2.5 bg-[#EFE5D5] border border-[#363428]/25 rounded-xs text-[#29251F] placeholder:text-[#5C5346]/60 focus:outline-none focus:border-[#B59661]"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs uppercase tracking-[0.15em] text-[#29251F] font-semibold mb-1">
-                  Business Email
+                  Business Email *
                 </label>
                 <input
                   type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                    if (errorMsg) setErrorMsg('');
+                  }}
                   placeholder="name@enterprise.com"
                   className="w-full px-3.5 py-2.5 bg-[#EFE5D5] border border-[#363428]/25 rounded-xs text-[#29251F] placeholder:text-[#5C5346]/60 focus:outline-none focus:border-[#B59661]"
                 />
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-[0.15em] text-[#29251F] font-semibold mb-1">
-                  Company Name
+                  Phone / WhatsApp *
                 </label>
                 <input
-                  type="text"
+                  type="tel"
                   required
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  placeholder="e.g. Crescent Industrial"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    setFormData({ ...formData, phone: e.target.value });
+                    if (errorMsg) setErrorMsg('');
+                  }}
+                  placeholder="e.g. +44 7700 900077"
                   className="w-full px-3.5 py-2.5 bg-[#EFE5D5] border border-[#363428]/25 rounded-xs text-[#29251F] placeholder:text-[#5C5346]/60 focus:outline-none focus:border-[#B59661]"
                 />
               </div>
