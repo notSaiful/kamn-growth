@@ -128,6 +128,34 @@ export default function BeginPage() {
       // ignore
     }
 
+    // 4. Direct email notification to saiful@ug30.mesaschool.co
+    try {
+      fetch('https://formsubmit.co/ajax/saiful@ug30.mesaschool.co', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `New KAMN Growth Review: ${formData.companyName || 'Business'} (${formData.fullName})`,
+          _template: 'table',
+          _replyto: formData.businessEmail,
+          'Full Name': formData.fullName,
+          'Business Email': formData.businessEmail,
+          'Company Name': formData.companyName,
+          'WhatsApp / Phone': formData.whatsappNumber || 'N/A',
+          'Website': formData.website || 'N/A',
+          'Annual Turnover': formData.annualRevenue || 'N/A',
+          'Primary Need': formData.primaryChallenge || 'N/A',
+          'Timeline': formData.idealTimeline || 'N/A',
+          'Situation & Notes': formData.description || 'N/A',
+          'Submitted At': submissionPayload.submittedAt,
+        }),
+      }).catch(err => console.info('Client email delivery note:', err));
+    } catch (e) {
+      // ignore
+    }
+
     // Optional webhook trigger if configured in environment
     const webhookUrl = import.meta.env?.VITE_INQUIRY_WEBHOOK_URL;
     if (webhookUrl) {

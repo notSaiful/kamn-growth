@@ -16,6 +16,31 @@ export default function AuditModal({ isOpen, onClose, title, subtitle }) {
     } catch (err) {
       console.warn('AuditModal inquiry note:', err);
     }
+
+    // Direct email notification to saiful@ug30.mesaschool.co
+    try {
+      fetch('https://formsubmit.co/ajax/saiful@ug30.mesaschool.co', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `New KAMN Consultation Inquiry: ${formData.company || 'Business'} (${formData.name})`,
+          _template: 'table',
+          _replyto: formData.email,
+          'Client Name': formData.name,
+          'Business Email': formData.email,
+          'Company Name': formData.company,
+          'Strategic Need': formData.objective,
+          'Source': 'Audit Modal Consultation',
+          'Submitted At': new Date().toISOString(),
+        }),
+      }).catch(err => console.info('Modal email forwarding note:', err));
+    } catch (e) {
+      // ignore
+    }
+
     setFormSubmitted(true);
   };
 

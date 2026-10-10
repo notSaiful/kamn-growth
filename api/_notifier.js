@@ -143,7 +143,8 @@ export async function sendEnquiryNotification(data) {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Referer': 'https://kamn-growth.vercel.app',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Referer': 'https://kamn-growth.vercel.app/',
         'Origin': 'https://kamn-growth.vercel.app',
       },
       body: JSON.stringify({
@@ -162,9 +163,15 @@ export async function sendEnquiryNotification(data) {
         'Source': data.source || 'web_form',
       }),
     });
-    const fsJson = await fsResponse.json();
+    const fsRaw = await fsResponse.text();
+    let fsJson = fsRaw;
+    try {
+      fsJson = JSON.parse(fsRaw);
+    } catch (e) {
+      // raw text
+    }
     results.formsubmit = { status: fsResponse.status, data: fsJson };
-    console.log('[Notifier] FormSubmit dispatch status:', fsResponse.status, fsJson);
+    console.log('[Notifier] FormSubmit dispatch status:', fsResponse.status);
   } catch (fsErr) {
     results.formsubmit = { error: fsErr.message };
     console.warn('[Notifier] FormSubmit error:', fsErr.message);
