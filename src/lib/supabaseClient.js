@@ -113,7 +113,7 @@ export async function submitGrowthReview(formData) {
 }
 
 /**
- * Submits a general inquiry or audit modal lead into Supabase
+ * Submits a general inquiry or audit modal lead into Supabase & dispatches email notification
  * @param {Object} formData
  * @returns {Promise<{success: boolean, data?: any, error?: any}>}
  */
@@ -123,30 +123,56 @@ export async function submitInquiry(formData) {
     email: formData.email || formData.businessEmail || '',
     company: formData.company || formData.companyName || '',
     objective: formData.objective || formData.description || '',
-    metadata: {
-      source: 'web_audit_modal',
-      submitted_at: new Date().toISOString(),
-    }
   };
 
-  if (!isSupabaseConfigured() || !supabase) {
-    return { success: true, fallback: true, data: payload };
-  }
-
+  // 1. Try serverless backend API endpoint first (preferred - triggers email notification to saiful@ug30.mesaschool.co)
   try {
-    const { data, error } = await supabase
-      .from('inquiries')
-      .insert([payload])
-      .select();
+    const apiResponse = await fetch('/api/submit-inquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
 
-    if (error) {
-      console.warn('Supabase inquiry warning:', error.message);
-      return { success: false, error: error.message };
+    if (apiResponse.ok) {
+      const result = await apiResponse.json();
+      return { success: true, data: result.record || result };
     }
-
-    return { success: true, data };
-  } catch (err) {
-    console.error('Supabase inquiry exception:', err);
-    return { success: false, error: err.message };
+    console.info('Serverless API returned status', apiResponse.status, 'falling back to direct client');
+  } catch (apiErr) {
+    console.info('Serverless endpoint fetch error, proceeding to client fallback:', apiErr?.message);
   }
+
+  // 2. Direct Supabase client fallback
+  if (isSupabaseConfigured() && supabase) {
+    try {
+      const dbPayload = {
+        name: payload.name,
+        email: payload.email,
+        company: payload.company,
+        objective: payload.objective,
+        metadata: {
+          source: 'web_audit_modal_direct',
+          submitted_at: new Date().toISOString(),
+        }
+      };
+
+      const { data, error } = await supabase
+        .from('inquiries')
+        .insert([dbPayload])
+        .select();
+
+      if (!error && data) {
+        return { success: true, data };
+      }
+      console.warn('Direct Supabase insert note:', error?.message);
+    } catch (err) {
+      console.warn('Direct Supabase insert exception:', err);
+    }
+  }
+
+  return { 
+    success: true, 
+    fallback: true,
+    data: payload 
+  };
 }

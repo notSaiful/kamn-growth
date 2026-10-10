@@ -1,7 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { sendEnquiryNotification } from './_notifier.js';
 
-// Environment variables fallback for Supabase
 const SUPABASE_URL = 
   process.env.SUPABASE_URL || 
   process.env.VITE_SUPABASE_URL || 
@@ -25,7 +24,6 @@ function getSupabaseClient() {
 }
 
 export default async function handler(req, res) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -41,75 +39,68 @@ export default async function handler(req, res) {
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
 
-    // 1. Honeypot spam defense: if hidden honeypot field is filled, silently succeed
+    // Honeypot spam defense
     if (body.hp_company_website || body.honeypot || body._bot_check) {
       console.warn('Honeypot trap triggered by spambot.');
-      return res.status(200).json({ success: true, message: 'Submission received.' });
+      return res.status(200).json({ success: true, message: 'Inquiry received.' });
     }
 
-    const fullName = (body.fullName || body.name || body.full_name || '').trim();
-    const businessEmail = (body.businessEmail || body.email || body.business_email || '').trim().toLowerCase();
-    const companyName = (body.companyName || body.company || body.company_name || '').trim();
+    const name = (body.name || body.fullName || '').trim();
+    const email = (body.email || body.businessEmail || '').trim().toLowerCase();
+    const company = (body.company || body.companyName || '').trim();
+    const objective = (body.objective || body.description || body.primaryChallenge || '').trim();
 
-    // 2. Server-side validation
-    if (!fullName || fullName.length < 2) {
+    if (!name || name.length < 2) {
       return res.status(400).json({ error: 'Full name is required (at least 2 characters).' });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!businessEmail || !emailRegex.test(businessEmail)) {
-      return res.status(400).json({ error: 'A valid business email address is required.' });
+    if (!email || !emailRegex.test(email)) {
+      return res.status(400).json({ error: 'A valid email address is required.' });
     }
 
     const payload = {
-      full_name: fullName,
-      business_email: businessEmail,
-      company_name: companyName || null,
-      website: (body.website || '').trim() || null,
-      whatsapp_number: (body.whatsappNumber || body.whatsapp_number || '').trim() || null,
-      annual_revenue: body.annualRevenue || body.annual_revenue || null,
-      primary_challenge: body.primaryChallenge || body.primary_challenge || null,
-      ideal_timeline: body.idealTimeline || body.ideal_timeline || null,
-      description: body.description || null,
+      name,
+      email,
+      company: company || null,
+      objective: objective || null,
+      status: 'new',
       metadata: {
-        source: 'api_submit_growth_review',
+        source: 'api_submit_inquiry',
         submitted_at: new Date().toISOString(),
         client_ip: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || null,
         user_agent: req.headers['user-agent'] || null,
       },
     };
 
-    // 3. Database ingestion
+    // 1. Supabase database ingestion
     let dbRecord = null;
     try {
       const supabase = getSupabaseClient();
       const { data, error } = await supabase
-        .from('growth_reviews')
+        .from('inquiries')
         .insert([payload])
-        .select('id, created_at, full_name, company_name');
+        .select('id, created_at, name, company');
 
       if (error) {
-        console.error('Supabase serverless insert warning:', error.message);
+        console.error('Supabase inquiry insert warning:', error.message);
       } else {
         dbRecord = data?.[0] || null;
       }
     } catch (dbErr) {
-      console.error('Supabase insert exception:', dbErr);
+      console.error('Supabase inquiry exception:', dbErr);
     }
 
-    // 4. Send email notification to saiful@ug30.mesaschool.co
+    // 2. Email notification to saiful@ug30.mesaschool.co
     let notificationResults = null;
     try {
       notificationResults = await sendEnquiryNotification({
-        ...payload,
-        fullName,
-        businessEmail,
-        companyName,
-        whatsappNumber: payload.whatsapp_number,
-        annualRevenue: payload.annual_revenue,
-        primaryChallenge: payload.primary_challenge,
-        idealTimeline: payload.ideal_timeline,
-        source: 'Executive Growth Review Form',
+        fullName: name,
+        businessEmail: email,
+        companyName: company,
+        primaryChallenge: objective,
+        description: objective,
+        source: 'Consultation Modal Inquiry',
       });
     } catch (notifErr) {
       console.warn('Enquiry email dispatch warning:', notifErr.message);
@@ -117,14 +108,14 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      message: 'Growth review application registered and dispatched.',
+      message: 'Consultation inquiry registered and dispatched.',
       record: dbRecord,
       notification: notificationResults,
     });
   } catch (err) {
-    console.error('Serverless submission exception:', err);
+    console.error('Inquiry submission exception:', err);
     return res.status(500).json({
-      error: 'Internal server error while processing growth review.',
+      error: 'Internal server error while processing inquiry.',
       details: err.message,
     });
   }
