@@ -18,7 +18,7 @@ export default function Footer() {
               <img 
                 src="/assets/kamn-logo-mark.png" 
                 alt="KAMN" 
-                className="h-10 w-auto object-contain filter drop-shadow-xs" 
+                className="h-8 w-auto object-contain filter drop-shadow-xs" 
               />
               <span className="text-2xl font-semibold text-[#29251F] tracking-[0.22em]">
                 KAMN
@@ -42,6 +42,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm text-[#29251F]/80">
               <li><Link to="/services" className="hover:text-[#B59661] transition-colors">What We Do</Link></li>
+              <li><Link to="/studio" className="hover:text-[#B59661] text-[#29251F] font-medium transition-colors">AI Studio &amp; Designer</Link></li>
               <li><Link to="/approach" className="hover:text-[#B59661] transition-colors">How It Works</Link></li>
               <li><Link to="/about" className="hover:text-[#B59661] transition-colors">Why KAMN</Link></li>
               <li><Link to="/results" className="hover:text-[#B59661] transition-colors">Founding Note</Link></li>
@@ -59,18 +60,27 @@ export default function Footer() {
               <li><Link to="/services/procurement" className="hover:text-[#29251F] transition-colors">Procurement</Link></li>
               <li><Link to="/services/operations" className="hover:text-[#29251F] transition-colors">Operations</Link></li>
               <li><Link to="/services/ai-systems" className="hover:text-[#29251F] transition-colors">AI Systems</Link></li>
+              <li><Link to="/studio" className="hover:text-[#B59661] text-[#68694C] font-semibold transition-colors">KAMN Studio</Link></li>
               <li><Link to="/partnership" className="hover:text-[#29251F] transition-colors">Partnership</Link></li>
             </ul>
           </div>
 
           {/* Intake Portal: 2 Cols */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 space-y-3">
             <h4 className="text-xs uppercase tracking-[0.25em] font-semibold text-[#29251F] mb-6">
               Engagement
             </h4>
             <p className="text-xs text-[#6C6255] font-normal leading-relaxed">
               Engagements begin by confidential review.
             </p>
+            <div className="pt-1">
+              <Link
+                to="/studio"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#68694C] hover:text-[#B59661] transition-colors"
+              >
+                <span>Launch KAMN Studio &rarr;</span>
+              </Link>
+            </div>
           </div>
 
         </div>

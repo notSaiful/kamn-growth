@@ -490,6 +490,36 @@ export const SEO_ROUTES = [
         }
       ]
     }
+  },
+
+  // 15. KAMN Studio — Voice-First AI Designer
+  {
+    path: '/studio',
+    title: 'KAMN Studio | Voice-First AI Website Designer & 120 Framer Templates',
+    description: 'Talk directly with your AI Creative Director. Real-time voice interaction, zero software setup, live website brief formulation, and 120 curated Framer templates.',
+    canonical: `${SITE_URL}/studio`,
+    ogType: 'website',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'KAMN Studio', 'item': `${SITE_URL}/studio` }
+          ]
+        },
+        {
+          '@type': 'WebApplication',
+          'name': 'KAMN Studio Voice AI Designer',
+          'applicationCategory': 'DesignApplication',
+          'operatingSystem': 'Web Browser',
+          'url': `${SITE_URL}/studio`,
+          'description': 'Voice-first conversational AI website designer formulating architectural website briefs and curating Framer marketplace templates.',
+          'publisher': { '@id': `${SITE_URL}/#organization` }
+        }
+      ]
+    }
   }
 ];
 

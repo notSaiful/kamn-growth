@@ -21,6 +21,7 @@ import PartnershipPage from './pages/PartnershipPage';
 import BeginPage from './pages/BeginPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
+import StudioPage from './pages/StudioPage';
 import NotFoundPage from './pages/NotFoundPage';
 import SeoHead from './components/SeoHead';
 
@@ -93,14 +94,20 @@ export function AppContent() {
           {/* 14. Terms */}
           <Route path="/terms" element={<TermsPage />} />
 
+          {/* 15. KAMN Studio — AI Website Designer Portal & Gateway */}
+          <Route path="/studio" element={<StudioPage />} />
+
           {/* Legacy URL Aliases Redirecting to Canonical Routes */}
           <Route path="/what-we-do" element={<Navigate to="/services" replace />} />
           <Route path="/how-it-works" element={<Navigate to="/approach" replace />} />
           <Route path="/why-kamn" element={<Navigate to="/about" replace />} />
           <Route path="/principles" element={<Navigate to="/about" replace />} />
           <Route path="/pricing" element={<Navigate to="/partnership" replace />} />
+          <Route path="/ai-designer" element={<Navigate to="/studio" replace />} />
+          <Route path="/services/studio" element={<Navigate to="/studio" replace />} />
+          <Route path="/voice-designer" element={<Navigate to="/studio" replace />} />
 
-          {/* 15. Custom 404 */}
+          {/* 16. Custom 404 */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

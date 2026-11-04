@@ -28,6 +28,7 @@ export default function Navbar() {
 
   const links = [
     { label: 'What We Do', href: '/services' },
+    { label: 'Studio', href: '/studio' },
     { label: 'How It Works', href: '/approach' },
     { label: 'Why KAMN', href: '/about' },
     { label: 'Insights', href: '/journal' },
@@ -49,7 +50,7 @@ export default function Navbar() {
             <img 
               src="/assets/kamn-logo-mark.png" 
               alt="KAMN" 
-              className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-xs" 
+              className="h-7 sm:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-xs" 
             />
             <span className={`tracking-[0.22em] font-semibold text-lg sm:text-xl transition-colors duration-300 ${
               showFloatingParchment ? 'text-[#29251F]' : 'text-[#FAF6EE]'
@@ -157,7 +158,7 @@ export default function Navbar() {
             {/* Top Bar with Close */}
             <div className="flex items-center justify-between border-b border-[#29251F]/10 pb-4 relative z-10">
               <div className="flex items-center gap-3">
-                <img src="/assets/kamn-logo-mark.png" alt="KAMN" className="h-9 w-auto object-contain" />
+                <img src="/assets/kamn-logo-mark.png" alt="KAMN" className="h-7 w-auto object-contain" />
                 <span className="tracking-[0.22em] text-xl font-semibold text-[#29251F]">
                   KAMN
                 </span>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Check, Shield } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Shield, Mic, Sparkles } from 'lucide-react';
 import SazoArchSvgDef, { KhatamStar, MashrabiyaPattern } from '../components/SazoArch';
 import { EASE_LUXURY } from '../lib/motionTokens';
 
@@ -305,6 +305,104 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ============================================================
+          SPOTLIGHT SECTION — KAMN STUDIO (VOICE-FIRST AI DESIGNER)
+          ============================================================ */}
+      <section className="py-20 sm:py-28 bg-[#FAF6EE]/50 backdrop-blur-xs border-b border-[#29251F]/10 relative overflow-hidden">
+        <MashrabiyaPattern className="opacity-[0.02]" />
+
+        <div className="editorial-container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-20px" }}
+            transition={{ duration: 0.6, ease: EASE_LUXURY }}
+            className="p-8 sm:p-14 rounded-md bg-[#29251F] text-[#FAF6EE] border border-[#B59661]/40 shadow-2xl relative overflow-hidden"
+          >
+            {/* Ambient gold radial glow */}
+            <div 
+              className="absolute -right-24 -bottom-24 w-96 h-96 pointer-events-none opacity-20"
+              style={{
+                background: 'radial-gradient(circle, rgba(181, 150, 97, 0.4), transparent 70%)'
+              }}
+            />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF6EE]/10 border border-[#B59661]/30">
+                  <Sparkles className="w-3.5 h-3.5 text-[#B59661]" />
+                  <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#B59661]">
+                    KAMN Studio &bull; Voice-First AI Designer
+                  </span>
+                </div>
+
+                <h3 className="text-3xl sm:text-5xl font-semibold tracking-tight text-[#FAF6EE] leading-[1.08]">
+                  Website Design, <br />
+                  <span className="text-[#E8D7BC]">Transformed Through Voice.</span>
+                </h3>
+
+                <p className="text-sm sm:text-base text-[#FAF6EE]/80 max-w-xl leading-relaxed">
+                  Have a natural conversation with your AI Creative Director. Speak your vision, explore 120 curated Framer templates across 40 business categories, and watch your brief build in real time.
+                </p>
+
+                <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                  <Link
+                    to="/studio"
+                    className="px-7 py-3.5 bg-[#B59661] hover:bg-[#C4A875] text-[#29251F] font-semibold text-xs uppercase tracking-[0.2em] rounded-xs transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
+                  >
+                    <Mic className="w-4 h-4 text-[#29251F]" />
+                    <span>Talk to Your AI Designer</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#29251F] group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+
+                  <Link
+                    to="/studio"
+                    className="px-6 py-3.5 bg-transparent hover:bg-white/5 border border-white/20 text-[#FAF6EE] text-xs font-semibold uppercase tracking-[0.2em] rounded-xs transition-all flex items-center justify-center gap-2"
+                  >
+                    <span>View 120 Templates</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Interactive Audio Waveform Card Visual */}
+              <div className="lg:col-span-5 bg-[#FAF6EE]/5 border border-[#B59661]/20 rounded-sm p-6 sm:p-8 space-y-4 text-center">
+                <div className="flex items-center justify-between text-xs text-[#FAF6EE]/70 pb-3 border-b border-white/10">
+                  <span className="uppercase tracking-widest text-[10px] text-[#B59661]">Real-Time WebRTC</span>
+                  <span className="inline-flex items-center gap-1.5 text-[11px] text-emerald-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Online
+                  </span>
+                </div>
+
+                <div className="py-4 flex items-center justify-center gap-1.5 h-20">
+                  {[24, 45, 80, 100, 65, 35, 75, 95, 110, 85, 50, 70, 90, 40, 20].map((h, i) => (
+                    <div
+                      key={i}
+                      className="w-1.5 rounded-full bg-[#B59661]/90"
+                      style={{ height: `${h}%` }}
+                    />
+                  ))}
+                </div>
+
+                <p className="text-xs text-[#FAF6EE]/90 italic">
+                  &ldquo;Tell me a little about your business.&rdquo;
+                </p>
+
+                <div className="pt-2">
+                  <Link
+                    to="/studio"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-[#B59661] hover:text-[#C4A875] transition-colors"
+                  >
+                    <span>Open Voice Gateway &rarr;</span>
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ============================================================
           SECTION 3 — HOW IT WORKS
@@ -588,7 +686,7 @@ export default function HomePage() {
           <img 
             src="/assets/kamn-logo-mark.png" 
             alt="KAMN Emblem" 
-            className="h-12 sm:h-14 w-auto mx-auto mb-2 object-contain filter drop-shadow-xs" 
+            className="h-9 sm:h-11 w-auto mx-auto mb-2 object-contain filter drop-shadow-xs" 
           />
 
           <h2 className="text-4xl sm:text-6xl md:text-7xl text-[#29251F] font-semibold tracking-tight leading-[1.04]">
